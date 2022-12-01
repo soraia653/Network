@@ -2,7 +2,32 @@
 {% load static %}
 
 {% block body %}
-<h1>Profile Page</h1>
+<h1 class="user-username">{{username}}'s Profile Page</h1>
+<p>Followers {{n_followers}}</p>
+<p>Following {{n_following}}</p>
+
+{% if username not in follows_users and user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Follow</button>
+</form>
+{% elif username in follows_users and user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Unfollow</button>
+</form>
+{% endif %}
+
+<div id="user-posts">
+    {% for p in user_posts %}
+    <div class="user-single-post">
+        <h6>{{p.user}}</h6>
+        <p>{{p.creation_date}}</p>
+        <p>{{p.text}}</p>
+        <p>{{p.count_likes}} likes</p>
+    </div>
+    {% endfor %}
+</div>
 
 {% block script %}
 <script src="{% static 'network/main.js' %}"></script>

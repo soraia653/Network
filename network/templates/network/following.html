@@ -1,0 +1,18 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h1>{{user}} Following Posts</h1>
+
+<div>
+    {% for post in posts %}
+    <p>{{post.user}}</p>
+    <p>{{post.creation_date}}</p>
+    <p>{{post.text}}</p>
+    {% endfor %}
+</div>
+
+{% block script %}
+<script src="{% static 'network/main.js' %}"></script>
+{% endblock %}
+{% endblock %}
